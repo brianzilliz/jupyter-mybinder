@@ -2,9 +2,6 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ENV USER=demo
-ENV HOME=/home/demo
-
 # Install javascript kernel
 RUN useradd -ms /bin/bash demo && \
     apt-get update --fix-missing && \
@@ -13,7 +10,7 @@ RUN useradd -ms /bin/bash demo && \
     ijsinstall --install=global 
 
 # Install java kernel
-ENV IJAVA_CLASSPATH=${HOME}
+ENV IJAVA_CLASSPATH=/home/demo
 
 RUN apt-get update && \
     apt-get install -y openjdk-17-jdk && \
@@ -25,6 +22,8 @@ RUN apt-get update && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
+ENV USER=demo
+ENV HOME=/home/demo
 ENV GO_VERSION=1.20.6
 ENV GONB_VERSION="v0.7.4"
 ENV GOROOT=/usr/local/go
