@@ -28,7 +28,6 @@ RUN go version && \
     gonb --install
 
 # Clean up space used by apt.
-USER root
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER demo
