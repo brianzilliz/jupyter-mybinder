@@ -47,7 +47,7 @@ USER root
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${USER}
-WORKDIR ${HOME}
+WORKDIR ${HOME}/work
 EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
 
