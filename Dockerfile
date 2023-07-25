@@ -19,20 +19,23 @@ RUN apt-get update && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
+RUN wget --quite --output-document=- "https://go.dev/dl/go1.20.6.linux-amd64.tar.gz" | tar -xz && \
+    go version
 
-RUN wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz && \
-    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz && \
-    export PATH=$PATH:/usr/local/go/bin && \
-    go install github.com/janpfeifer/gonb@latest && \
+USER demo
+WORKDIR /home/demo
+RUN go install github.com/janpfeifer/gonb@latest && \
     go install golang.org/x/tools/cmd/goimports@latest && \
     go install golang.org/x/tools/gopls@latest && \
     gonb --install
 
-EXPOSE 8888
+# Clean up space used by apt.
+USER root
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER demo
 WORKDIR /home/demo
-
+EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
 
 
