@@ -19,8 +19,9 @@ RUN apt-get update && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
-RUN wget --quiet --output-document=- "https://go.dev/dl/go1.20.6.linux-amd64.tar.gz" | tar -xz && \
-    go version
+RUN wget --quiet "https://go.dev/dl/go1.20.6.linux-amd64.tar.gz" && \
+    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz && \
+    export PATH=$PATH:/usr/local/go/bin && go version
 
 USER demo
 WORKDIR /home/demo
