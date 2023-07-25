@@ -18,6 +18,16 @@ RUN apt-get update && \
     python3 install.py --sys-prefix && \
     rm -rf ijava-1.3.0.zip
 
+# Install golang kernel
+
+RUN wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz && \
+    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz && \
+    export PATH=$PATH:/usr/local/go/bin && \
+    go install github.com/janpfeifer/gonb@latest && \
+    go install golang.org/x/tools/cmd/goimports@latest && \
+    go install golang.org/x/tools/gopls@latest && \
+    gonb --install
+
 EXPOSE 8888
 
 USER demo
@@ -25,12 +35,4 @@ WORKDIR /home/demo
 
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
 
-# ## Install golang kernel
 
-# RUN wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz && \
-#     rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz && \
-#     export PATH=$PATH:/usr/local/go/bin && \
-#     go install github.com/janpfeifer/gonb@latest && \
-#     go install golang.org/x/tools/cmd/goimports@latest && \
-#     go install golang.org/x/tools/gopls@latest && \
-#     gonb --install
