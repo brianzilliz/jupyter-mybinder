@@ -14,7 +14,7 @@ EXPOSE 8888
 USER demo
 WORKDIR /home/demo
 
-CMD ["jupyter", "notebook"]
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
 
 # # Install java kernel
 
