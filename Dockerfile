@@ -2,6 +2,9 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+ENV USER=demo
+ENV HOME=/home/demo
+
 # Install javascript kernel
 RUN useradd -ms /bin/bash demo && \
     apt-get update --fix-missing && \
@@ -16,12 +19,10 @@ RUN apt-get update && \
     apt-get install -y wget unzip && \
     wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
     unzip ijava-1.3.0.zip && \
-    python3 install.py --sys-prefix && \
+    python3 install.py --sys-prefix --param classpath:${HOME}  && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
-ENV USER=demo
-ENV HOME=/home/demo
 ENV GO_VERSION=1.20.6
 ENV GONB_VERSION="v0.7.4"
 ENV GOROOT=/usr/local/go
