@@ -20,6 +20,8 @@ RUN apt-get update && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
+ENV USER=demo
+ENV HOME=/home/demo
 ENV GO_VERSION=1.20.6
 ENV GONB_VERSION="v0.7.4"
 ENV GOROOT=/usr/local/go
@@ -32,7 +34,7 @@ RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-am
     && go version
 
 # Install GoNB (https://github.com/janpfeifer/gonb) in the jovyan's user account (default user)
-USER demo
+USER ${USER}
 WORKDIR ${HOME}
 RUN go install "github.com/janpfeifer/gonb@${GONB_VERSION}" && \
     go install golang.org/x/tools/cmd/goimports@latest && \
@@ -43,7 +45,7 @@ RUN go install "github.com/janpfeifer/gonb@${GONB_VERSION}" && \
 USER root
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER demo
+USER ${USER}
 WORKDIR ${HOME}
 EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
