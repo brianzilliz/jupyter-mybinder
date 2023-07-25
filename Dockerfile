@@ -40,10 +40,11 @@ RUN go install "github.com/janpfeifer/gonb@${GONB_VERSION}" && \
     gonb --install
 
 # Clean up space used by apt.
+USER root
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER demo
-WORKDIR /home/demo
+WORKDIR ${HOME}
 EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
 
