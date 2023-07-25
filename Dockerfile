@@ -19,12 +19,8 @@ RUN apt-get update && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
-RUN wget --quiet "https://go.dev/dl/go1.20.6.linux-amd64.tar.gz" && \
-    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz && \
-    echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile && . /etc/profile
-
-USER demo
-WORKDIR /home/demo
+RUN wget --quiet --output-document=- "https://go.dev/dl/go1.20.6.linux-amd64.tar.gz" | tar -v -C /usr/local -xz
+ENV PATH $PATH:/user/local/go/bin
 RUN go version && \ 
     go install github.com/janpfeifer/gonb@latest && \
     go install golang.org/x/tools/cmd/goimports@latest && \
