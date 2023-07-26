@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh && \
-    apt-get update && apt-get curl install -y python3 python3-pip && \
+    apt-get update && apt-get install -y curl python3 python3-pip && \
     python3 -m pip install notebook
 
 # Install javascript kernel
