@@ -18,7 +18,7 @@ RUN useradd -ms /bin/bash demo && \
 #     unzip ijava-1.3.0.zip && \
 #     python3 install.py --sys-prefix --classpath /home/demo && \
 #     rm -rf ijava-1.3.0.zip
-RUN pip install beakerX && beakerX install
+RUN python3 -m pip install beakerX && beakerX install
 
 # Install golang kernel
 ENV USER=demo
