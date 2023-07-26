@@ -1,13 +1,13 @@
 FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh && \
-    apt-get update && apt-get install -y curl python3 python3-pip && \
+    apt-get update && apt-get install -y sudo curl python3 python3-pip && \
     python3 -m pip install notebook
 
 # Install javascript kernel
 RUN useradd -ms /bin/bash demo && \
     apt-get update --fix-missing && \
-    curl -fsSL https://deb.nodesource.com/setup_lts | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     npm install -g --unsafe-perm ijavascript && \
     ijsinstall --install=global 
