@@ -10,15 +10,14 @@ RUN useradd -ms /bin/bash demo && \
     ijsinstall --install=global 
 
 # Install java kernel
-# RUN apt-get update && \
-#     apt-get install -y openjdk-17-jdk && \
-#     apt-get install -y maven && \
-#     apt-get install -y wget unzip && \
-#     wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
-#     unzip ijava-1.3.0.zip && \
-#     python3 install.py --sys-prefix --classpath /home/demo && \
-#     rm -rf ijava-1.3.0.zip
-RUN python3 -m pip install beakerX && beakerX install
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk && \
+    apt-get install -y maven && \
+    apt-get install -y wget unzip && \
+    wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
+    unzip ijava-1.3.0.zip && \
+    python3 install.py --sys-prefix --classpath /home/demo && \
+    rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
 ENV USER=demo
