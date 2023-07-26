@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get install -y wget unzip && \
     wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
     unzip ijava-1.3.0.zip && \
-    python3 install.py --sys-prefix --classpath /home/demo --comp-opts -ea -Xmx256m && \
+    python3 install.py --sys-prefix --classpath /home/demo && \
     rm -rf ijava-1.3.0.zip
 
 # Install golang kernel
