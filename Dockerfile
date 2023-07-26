@@ -16,6 +16,7 @@ RUN apt-get update && \
     apt-get install -y wget unzip && \
     wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
     unzip ijava-1.3.0.zip && \
+    wget -P /home/demo https://repo1.maven.org/maven2/io/milvus/milvus-sdk-java/2.2.9/milvus-sdk-java-2.2.9.jar && \
     python3 install.py --sys-prefix --classpath /home/demo && \
     rm -rf ijava-1.3.0.zip
 
