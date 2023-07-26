@@ -1,17 +1,22 @@
 FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh && \
+    apt-get update && apt-get install software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
+    apt-get install python3.11 && \
+    python3.11 -m pip install notebook
 
 # Install javascript kernel
 RUN useradd -ms /bin/bash demo && \
     apt-get update --fix-missing && \
-    apt-get install -y sudo nodejs npm jupyter && \
+    curl -fsSL https://deb.nodesource.com/setup_lts | sudo -E bash - &&\
+    apt-get install -y nodejs && \
     npm install -g --unsafe-perm ijavascript && \
     ijsinstall --install=global 
 
 # Install java kernel
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk && \
+    apt-get install -y openjdk-11-jdk && \
     apt-get install -y maven && \
     apt-get install -y wget unzip && \
     wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip && \
