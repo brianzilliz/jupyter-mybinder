@@ -3,7 +3,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh && \
     apt-get update && apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
-    apt-get install -y python3.11 && \
+    apt-get install -y python3.11 python3.11-pip && \
     python3.11 -m pip install notebook
 
 # Install javascript kernel
